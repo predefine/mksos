@@ -16,8 +16,8 @@ pic_add_interrupt:
     push dx
     cmp al, 8h
     jl .pic1
-;.pic2:
-;    add al, 0x60 ; 0x8-0xf -> 0x70-0x77
+.pic2:
+   add al, 0x60 ; 0x8-0xf -> 0x70-0x77
 .pic1:
     add al, 0x08
     mov bl, 4
