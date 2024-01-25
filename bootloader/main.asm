@@ -8,6 +8,7 @@ org 0x7e00
 %include "ps2k.asm"
 
 init_table:
+    dw enable_a20
     dw pic_init
     dw ps2k_init
     ;dw add_timer
@@ -53,6 +54,17 @@ mloop:
     call putc
     pop ax
     jmp mloop
+
+enable_a20:
+    push ax
+    in al, 0x92
+    test al, 2
+    jnz .done ; a20 is enabled
+    or al, 2
+    out 0x92, al
+.done:
+    pop ax
+    ret
 
 main:
     call load_init_table
