@@ -3,8 +3,36 @@
 ; al = char
 putc:
     push ax
+    cmp al, 10 ; \n
+    jne .putc2
+.newline:
+    push ax
+    mov al, 13
+    call putc_
+    pop ax
+.putc2:
+    call putc_
+.backspace:
+    cmp al, 8 ; backspace
+    jne .done
+    push ax
+    mov al, ' '
+    call putc_
+    pop ax
+    call putc_
+.done:
+    pop ax
+    ret
+
+; al = char
+putc_:
+    push ax
     push bx
 
+    cmp al, 9
+    jne .putc_2
+    mov al, ' ' ; replace \t to space
+.putc_2:
     mov ah, 0eh
     xor bl,bl
     int 10h
@@ -83,7 +111,6 @@ getch:
     push bx
 .loop:
     call ps2k_get_scancode ; ah = extended, al = scancode
-    ;call put_int
     cmp ah, 1
     je .loop
 
