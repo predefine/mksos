@@ -50,7 +50,7 @@ load_init_table:
 
 mloop:
     push ax
-    call ps2k_get_scancode
+    call getch
     call putc
     pop ax
     jmp mloop
