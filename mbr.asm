@@ -113,4 +113,4 @@ BOOTDISK: db 0
 times 510-($-$$) db 0
 db 0x55, 0xaa
 
-load_addr:
+load_addr equ 0x8000 ; 0x7e00 for old bootloader version

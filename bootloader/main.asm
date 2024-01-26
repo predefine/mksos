@@ -1,4 +1,4 @@
-org 0x7e00
+org 0x8000
 
 %include "_entry.asm" ; Should be before any code/asm file
 
