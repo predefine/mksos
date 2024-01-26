@@ -8,7 +8,9 @@ test: disk.img
 	qemu-system-i386 -hda $<
 
 disk.img: $(PARTS)
-	$(Q)cat $^ > $@
+	$(Q)cp $< $@
+	truncate -s 1440K $@
+	mcopy -i $@ bootloader.bin "::BOOTLDR.bin"
 
 bootloader.bin: bootloader/main.asm $(wildcard bootloader/*.asm)
 	$(Q)$(AS) -i bootloader -f bin -o $@ $<
