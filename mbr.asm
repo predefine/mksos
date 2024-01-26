@@ -43,7 +43,7 @@ load_error:
 
 bl_dap:
     dw 10h           ; DAP size
-    dw 1             ; sectors to read
+    dw 2             ; sectors to read
     dw load_addr     ; offset
 DAP_segment:    dw 0 ; segment
     dd 1,0           ; lba
