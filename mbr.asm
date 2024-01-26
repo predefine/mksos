@@ -32,12 +32,6 @@ start:
     mov si, msg_loading
     call puts
 
-    push es
-    mov ah, 08h
-    int 13h
-    jc read_error
-    pop es
-
     and cl, 0x3F                        ; remove top 2 bits
     xor ch, ch
     mov [bdb_sectors_per_track], cx     ; sector count
@@ -164,11 +158,6 @@ start:
 ; Error handlers
 ;
 
-read_error:
-    mov si, msg_read_failed
-    call puts
-    jmp halt
-
 kernel_not_found_error:
     mov si, msg_bootloader_not_found
     call puts
@@ -257,7 +246,6 @@ disk_read:
 
 
 msg_loading:            db 'tinyFat!', 10, 13, 0
-msg_read_failed:        db 'Read from disk failed!', 0
 msg_bootloader_not_found:   db 'bootldr.bin file not found!', 0
 bootldr_file:        db 'BOOTLDR BIN'
 
