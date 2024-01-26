@@ -47,11 +47,14 @@ ps2k_get_scancode:
     cmp al, 1
     jne ps2k_get_scancode ; while(!ps2k_ready);
 
-    mov al, 0
-    mov [ps2k_ready], al ; ps2k_ready = 0
-
     mov ah, [ps2k_extended]
     mov al, [ps2k_key] ; return (ps2k_extended << 8) | ps2k_key;
+
+    push ax
+    mov al, 0
+    mov [ps2k_ready], al ; ps2k_ready = 0
+    mov [ps2k_extended], al ; ps2k_extended = 0
+    pop ax
 
     ret
 
